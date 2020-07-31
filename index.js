@@ -10,6 +10,7 @@ const
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "SomeRandomString"
+const request = require('request');
 
 function callSendAPI(sender_psid, response) {
   // Construct the message body
