@@ -13,12 +13,20 @@ const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "SomeRandomString"
 const request = require('request');
 const GraphApi = require('./api');
 
+function firstTrait(nlp, name) {
+  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+}
+
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
-
+  console.log(received_message);
+  const greeting = firstTrait(received_message.nlp, 'wit$greetings');
+  if (greeting && greeting.confidence > 0.8) {
+    response = {"text": 'Hi there!'};
+  }
   // Check if the message contains text
-  if (received_message.text) {    
+  else if (received_message.text) {    
     // Create the payload for a basic text message
     response = {
       "text": `You sent the message: "${received_message.text}". Now send me an image!`
