@@ -23,7 +23,21 @@ function witAiApiCallback(sender_psid, intentId) {
     switch(intentId) {
         case "AccountOpenChecking": response = {"text": "Do you want to open Checking account?"}; break; 
         case "AccountOpenSavings": response = {"text": "Do you want to open Savings account?"}; break;
-        case "AccountOpen": response = {
+        case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",
+            [
+              {
+                "type": "postback",
+                "title": "Savings",
+                "payload": "savingsopen",
+              },
+              {
+                "type": "postback",
+                "title": "Checking",
+                "payload": "checkingopen",
+              }
+            ]
+        );
+            /*{
           "attachment": Response.genButtonTemplate("Which kind of account do you want to open?",
             [
               {
@@ -37,7 +51,7 @@ function witAiApiCallback(sender_psid, intentId) {
                 "payload": "checkingopen",
               }
             ]
-        )}; break;
+        )};*/ break;
     }
     
     GraphApi.callSendAPI(sender_psid, response);
@@ -57,7 +71,19 @@ function handleMessage(sender_psid, received_message) {
   } else if (received_message.attachments) {
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-      response = {
+      response = Response.genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
+          {
+              "type": "postback",
+              "title": "Yes!",
+              "payload": "yes",
+          },
+          {
+              "type": "postback",
+              "title": "No!",
+              "payload": "no",
+          }
+      ]);
+      /*response = {
       "attachment": Response.genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
           {
               "type": "postback",
@@ -70,7 +96,7 @@ function handleMessage(sender_psid, received_message) {
               "payload": "no",
           }
       ])
-    }
+    }*/
     GraphApi.callSendAPI(sender_psid, response);
   } 
   
