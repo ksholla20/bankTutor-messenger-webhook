@@ -49,7 +49,7 @@ function witAiApiCallback(sender_psid, intentId) {
     
     GraphApi.callSendAPI(sender_psid, response);
     if(intentId !== "AccountOpen") {
-        GraphApi.callSendAPI(sender_psid, genWebUrlButton("Click Here To Open", imagePath[intentId]));
+        GraphApi.callSendAPI(sender_psid, Response.genWebUrlButton("Click Here To Open", imagePath[intentId]));
     }
 }
 // Handles messages events
