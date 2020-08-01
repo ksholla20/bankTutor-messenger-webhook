@@ -11,6 +11,7 @@ module.exports = class WitAiApi {
 
     static callIntentAPI(query, sender_psid, callback) {
       // Send the HTTP request to the Messenger Platform
+        console.log(query);
       request({
         "uri": "https://api.wit.ai/message",
         "qs": { "v": "20200801","q": query},
@@ -18,6 +19,7 @@ module.exports = class WitAiApi {
         "method": "GET"
       }, (err, res, body) => {
         if (!err) {
+          console.log(res.body);
           const info = JSON.parse(res.body);
           const intent = info.intents.sort(function(a, b){return b.confidence-a.confidence})[0];
           callback(sender_psid, intent.name);
