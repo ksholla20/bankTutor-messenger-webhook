@@ -26,20 +26,19 @@ function witAiApiCallback(sender_psid, intentId) {
           "attachment": {
             "type": "template",
             "payload": {
-              "template_type": "generic",
+              "template_type": "button",
               "elements": [{
                 "title": "Which kind of account do you want to open?",
-                "subtitle": "Tap a button to answer.",
                 "buttons": [
                   {
                     "type": "postback",
                     "title": "Savings",
-                    "payload": {"intent": intentId, "type": "savings"},
+                    "payload": "savingsopen",
                   },
                   {
                     "type": "postback",
                     "title": "Checking",
-                    "payload": {"intent": intentId, "type": "checking"},
+                    "payload": "checkingopen",
                   }
                 ],
               }]
@@ -103,20 +102,11 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
-  }
-  else {
-      switch(payload.intent) {
-          case "AccountOpen": {
-              switch (payload.type) {
-                  case "savings": response = {"text": "Do you want to open Savings account?"}; break;
-                  case "checking": response = {"text": "Do you want to open Checking account?"}; break;
-              }
-          }
-      }
+  switch(payload) {
+      case "yes": response = { "text": "Thanks!" }; break;
+      case "no": response = { "text": "Oops, try sending another image." }; break;
+      case "savingsopen": response = {"text": "Do you want to open Savings account?"}; break;
+      case "checkingopen": response = {"text": "Do you want to open Checking account?"}; break;
   }
   // Send the message to acknowledge the postback
   GraphApi.callSendAPI(sender_psid, response);
