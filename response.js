@@ -69,6 +69,20 @@ module.exports = class Response {
     return response;
   }
 
+  static genSimpleImageTemplate(image_url) {
+    let response = {
+      attachment: {
+        type: "image",
+        payload: {
+            "url": image_url,
+            "is_reusable":true
+        }
+      }
+    };
+
+    return response;
+  }
+
   static genButtonTemplate(title, buttons) {
     let response = {
       attachment: {

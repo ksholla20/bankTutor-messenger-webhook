@@ -27,10 +27,10 @@ function witAiApiCallback(sender_psid, intentId) {
       "text": "Don't know what it means"
     }
     switch(intentId) {
-        case "AccountOpenChecking": response = Response.genImageTemplate(imagePath[intentId], "Open Checking Account"); break;
-        case "AccountOpenSavings": response = Response.genImageTemplate(imagePath[intentId], "Open Savings Account"); break;
-        case "TransferMoney": response = Response.genImageTemplate(imagePath[intentId], "Transfer Money"); break;
-        case "GrantLoan": response = Response.genImageTemplate(imagePath[intentId], "Loan Grant Procedure"); break;
+        case "AccountOpenChecking": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
+        case "AccountOpenSavings": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
+        case "TransferMoney": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
+        case "GrantLoan": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
         case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",
             [
               {
