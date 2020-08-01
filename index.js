@@ -12,25 +12,52 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "SomeRandomString"
 const request = require('request');
 const GraphApi = require('./api');
+const WitAiApi = require('./witai');
 
-function firstTrait(nlp, name) {
-  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+function witAiApiCallback(sender_psid, intentId) {
+    let response = {
+      "text": "Don't know what it means"
+    }
+    switch(intentId) {
+        case "AccountOpenChecking": response = {"text": "Do you want to open Checking account?"}; break; 
+        case "AccountOpenSavings": response = {"text": "Do you want to open Savings account?"}; break;
+        case "AccountOpen": response = {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [{
+                "title": "Which kind of account do you want to open?",
+                "subtitle": "Tap a button to answer.",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Savings",
+                    "payload": {"intent": intentId, "type": "savings"},
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Checking",
+                    "payload": {"intent": intentId, "type": "checking"},
+                  }
+                ],
+              }]
+            }
+          }
+    }
 }
-
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
   console.log(received_message);
-  const greeting = firstTrait(received_message.nlp, 'wit$greetings');
+  const greeting = WitAiApi.firstTrait(received_message.nlp, 'wit$greetings');
   if (greeting && greeting.confidence > 0.8) {
-    response = {"text": 'Hi there!'};
+    GraphApi.callSendAPI(sender_psid, {"text": 'Hi there!'});
   }
   // Check if the message contains text
   else if (received_message.text) {    
     // Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
+    WitAiApi.callIntentAPI(received_message.text, sender_psid, witAiApiCallback);
   } else if (received_message.attachments) {
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
@@ -59,10 +86,10 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
+    GraphApi.callSendAPI(sender_psid, response);
   } 
   
   // Sends the response message
-  GraphApi.callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
@@ -77,6 +104,16 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Thanks!" }
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
+  }
+  else {
+      switch(payload.intent) {
+          case "AccountOpen": {
+              switch (payload.type) {
+                  case "savings": response = {"text": "Do you want to open Savings account?"}; break;
+                  case "checking": response = {"text": "Do you want to open Checking account?"}; break;
+              }
+          }
+      }
   }
   // Send the message to acknowledge the postback
   GraphApi.callSendAPI(sender_psid, response);
@@ -146,4 +183,13 @@ app.get('/webhook', (req, res) => {
       res.sendStatus(403);      
     }
   }
+});
+
+app.get('/test', (req, res) => {
+
+  // Your verify token. Should be a random string.
+    
+  // Parse the query params
+  let q = req.query['q'];
+    WitAiApi.callIntentAPI(q);
 });
