@@ -44,6 +44,7 @@ function witAiApiCallback(sender_psid, intentId) {
               }]
             }
           }
+        }; break;
     }
 }
 // Handles messages events
