@@ -16,21 +16,22 @@ const WitAiApi = require('./witai');
 const Response = require('./response');
 const imageBasePath = "https://github.com/ksholla20/bankTutor-messenger-webhook/blob/master/assets"
 const imagePath = {
-    "AccountOpenChecking": `${imageBasePath}/CreateAccount.jpg`,
-    "AccountOpenSavings": `${imageBasePath}/CreateAccount.jpg`,
-    "TransferMoney": `${imageBasePath}/TransferMoney.png`,
-    "GrantLoan": `${imageBasePath}/GrantLoan.png`,
+    "AccountOpenChecking": `CreateAccount.jpg`,
+    "AccountOpenSavings": `CreateAccount.jpg`,
+    "TransferMoney": `TransferMoney.png`,
+    "GrantLoan": `GrantLoan.png`,
 };
 
 function witAiApiCallback(sender_psid, intentId) {
     let response = {
       "text": "Don't know what it means"
     }
+    let filedata = null;
     switch(intentId) {
-        case "AccountOpenChecking": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "AccountOpenSavings": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "TransferMoney": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "GrantLoan": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
+        case "AccountOpenChecking": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/jpeg`; break;
+        case "AccountOpenSavings": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/jpeg`; break;
+        case "TransferMoney": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/png`; break;
+        case "GrantLoan": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/png`; break;
         case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",
             [
               {
@@ -47,9 +48,9 @@ function witAiApiCallback(sender_psid, intentId) {
         ); break;
     }
     
-    GraphApi.callSendAPI(sender_psid, response);
+    GraphApi.callSendAPI(sender_psid, response, filedata);
     if(intentId !== "AccountOpen") {
-        GraphApi.callSendAPI(sender_psid, Response.genWebUrlButton("Click Here To Open", imagePath[intentId]));
+        GraphApi.callSendAPI(sender_psid, Response.genWebUrlButton("Click Here To Open", `${imageBasePath}/${imagePath[intentId]}`));
     }
 }
 // Handles messages events
