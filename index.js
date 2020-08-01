@@ -19,7 +19,6 @@ function witAiApiCallback(sender_psid, intentId) {
     let response = {
       "text": "Don't know what it means"
     }
-    console.log(intentId);
     switch(intentId) {
         case "AccountOpenChecking": response = {"text": "Do you want to open Checking account?"}; break; 
         case "AccountOpenSavings": response = {"text": "Do you want to open Savings account?"}; break;
@@ -36,22 +35,7 @@ function witAiApiCallback(sender_psid, intentId) {
                 "payload": "checkingopen",
               }
             ]
-        );
-            /*{
-          "attachment": Response.genButtonTemplate("Which kind of account do you want to open?",
-            [
-              {
-                "type": "postback",
-                "title": "Savings",
-                "payload": "savingsopen",
-              },
-              {
-                "type": "postback",
-                "title": "Checking",
-                "payload": "checkingopen",
-              }
-            ]
-        )};*/ break;
+        ); break;
     }
     
     GraphApi.callSendAPI(sender_psid, response);
@@ -83,24 +67,8 @@ function handleMessage(sender_psid, received_message) {
               "payload": "no",
           }
       ]);
-      /*response = {
-      "attachment": Response.genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
-          {
-              "type": "postback",
-              "title": "Yes!",
-              "payload": "yes",
-          },
-          {
-              "type": "postback",
-              "title": "No!",
-              "payload": "no",
-          }
-      ])
-    }*/
     GraphApi.callSendAPI(sender_psid, response);
   } 
-  
-  // Sends the response message
 }
 
 // Handles messaging_postbacks events
