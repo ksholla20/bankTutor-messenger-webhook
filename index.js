@@ -14,14 +14,23 @@ const request = require('request');
 const GraphApi = require('./api');
 const WitAiApi = require('./witai');
 const Response = require('./response');
+const imageBasePath = "https://github.com/ksholla20/bankTutor-messenger-webhook/blob/master/assets"
+const imagePath = {
+    "AccountOpenChecking": `${imageBasePath}/CreateAccount.jpg`,
+    "AccountOpenSavings": `${imageBasePath}/CreateAccount.jpg`,
+    "TransferMoney": `${imageBasePath}/TransferMoney.png`,
+    "GrantLoan": `${imageBasePath}/GrantLoan.png`,
+};
 
 function witAiApiCallback(sender_psid, intentId) {
     let response = {
       "text": "Don't know what it means"
     }
     switch(intentId) {
-        case "AccountOpenChecking": response = {"text": "Do you want to open Checking account?"}; break; 
-        case "AccountOpenSavings": response = {"text": "Do you want to open Savings account?"}; break;
+        case "AccountOpenChecking": response = Response.genImageTemplate(imagePath[intentId], "Open Checking Account"); break;
+        case "AccountOpenSavings": response = Response.genImageTemplate(imagePath[intentId], "Open Savings Account"); break;
+        case "TransferMoney": response = Response.genImageTemplate(imagePath[intentId], "Transfer Money"); break;
+        case "GrantLoan": response = Response.genImageTemplate(imagePath[intentId], "Loan Grant Procedure"); break;
         case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",
             [
               {
@@ -39,6 +48,9 @@ function witAiApiCallback(sender_psid, intentId) {
     }
     
     GraphApi.callSendAPI(sender_psid, response);
+    if(intentId !== "AccountOpen") {
+        GraphApi.callSendAPI(sender_psid, genWebUrlButton("Click Here To Open", imagePath[intentId]));
+    }
 }
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
@@ -82,8 +94,8 @@ function handlePostback(sender_psid, received_postback) {
   switch(payload) {
       case "yes": response = { "text": "Thanks!" }; break;
       case "no": response = { "text": "Oops, try sending another image." }; break;
-      case "savingsopen": response = {"text": "Do you want to open Savings account?"}; break;
-      case "checkingopen": response = {"text": "Do you want to open Checking account?"}; break;
+      case "savingsopen": witAiApiCallback(sender_psid, "AccountOpenSavings"); return;
+      case "checkingopen": witAiApiCallback(sender_psid, "AccountOpenChecking"); return;
   }
   // Send the message to acknowledge the postback
   GraphApi.callSendAPI(sender_psid, response);
