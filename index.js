@@ -18,6 +18,7 @@ function witAiApiCallback(sender_psid, intentId) {
     let response = {
       "text": "Don't know what it means"
     }
+    console.log(intentId);
     switch(intentId) {
         case "AccountOpenChecking": response = {"text": "Do you want to open Checking account?"}; break; 
         case "AccountOpenSavings": response = {"text": "Do you want to open Savings account?"}; break;
@@ -46,6 +47,7 @@ function witAiApiCallback(sender_psid, intentId) {
           }
         }; break;
     }
+    GraphApi.callSendAPI(sender_psid, response);
 }
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
