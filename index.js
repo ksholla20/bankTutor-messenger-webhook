@@ -13,6 +13,7 @@ const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "SomeRandomString"
 const request = require('request');
 const GraphApi = require('./api');
 const WitAiApi = require('./witai');
+const Response = require('./response');
 
 function witAiApiCallback(sender_psid, intentId) {
     let response = {
@@ -23,28 +24,20 @@ function witAiApiCallback(sender_psid, intentId) {
         case "AccountOpenChecking": response = {"text": "Do you want to open Checking account?"}; break; 
         case "AccountOpenSavings": response = {"text": "Do you want to open Savings account?"}; break;
         case "AccountOpen": response = {
-          "attachment": {
-            "type": "template",
-            "payload": {
-              "template_type": "button",
-              "elements": [{
-                "title": "Which kind of account do you want to open?",
-                "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Savings",
-                    "payload": "savingsopen",
-                  },
-                  {
-                    "type": "postback",
-                    "title": "Checking",
-                    "payload": "checkingopen",
-                  }
-                ],
-              }]
-            }
-          }
-        }; break;
+          "attachment": Response.genButtonTemplate("Which kind of account do you want to open?",
+            [
+              {
+                "type": "postback",
+                "title": "Savings",
+                "payload": "savingsopen",
+              },
+              {
+                "type": "postback",
+                "title": "Checking",
+                "payload": "checkingopen",
+              }
+            ]
+        )}; break;
     }
     GraphApi.callSendAPI(sender_psid, response);
 }
@@ -64,29 +57,18 @@ function handleMessage(sender_psid, received_message) {
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
       response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
+      "attachment": genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
+          {
+              "type": "postback",
+              "title": "Yes!",
+              "payload": "yes",
+          },
+          {
+              "type": "postback",
+              "title": "No!",
+              "payload": "no",
+          }
+      ])
     }
     GraphApi.callSendAPI(sender_psid, response);
   } 
