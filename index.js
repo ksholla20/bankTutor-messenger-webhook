@@ -39,6 +39,7 @@ function witAiApiCallback(sender_psid, intentId) {
             ]
         )}; break;
     }
+    
     GraphApi.callSendAPI(sender_psid, response);
 }
 // Handles messages events
@@ -57,7 +58,7 @@ function handleMessage(sender_psid, received_message) {
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
       response = {
-      "attachment": genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
+      "attachment": Response.genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
           {
               "type": "postback",
               "title": "Yes!",
@@ -108,7 +109,7 @@ app.post('/webhook', (req, res) => {
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+      //console.log(webhook_event);
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
