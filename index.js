@@ -244,7 +244,7 @@ const messageWorkflow = {
 
 function witAiApiCallback(sender_psid, intentId) {
     let response = messageWorkflow["defaultmessage"];
-    if(intentId in workflow) {
+    if(intentId in messageWorkflow) {
         Response.genButtonTemplate(postBackWorkflow[intentId].text, postBackWorkflow[intentId].options);
     }
     else {
