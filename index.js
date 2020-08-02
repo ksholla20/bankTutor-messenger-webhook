@@ -8,7 +8,6 @@ const
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN || "SomeRandomString"
 const request = require('request');
 const GraphApi = require('./api');
@@ -34,8 +33,17 @@ function handleMessage(sender_psid, received_message) {
   let response;
   console.log(received_message);
   const greeting = WitAiApi.firstTrait(received_message.nlp, 'wit$greetings');
+  const thanks = WitAiApi.firstTrait(received_message.nlp, 'wit$thanks');
+  const bye = WitAiApi.firstTrait(received_message.nlp, 'wit$bye');
+
   if (greeting && greeting.confidence > 0.8) {
-    GraphApi.callSendAPI(sender_psid, {"text": 'Hi there!'});
+    GraphApi.callSendAPI(sender_psid, {"text": 'Hi there! What do you want to seek?'});
+  }
+  else if(thanks && thanks.confidence > 0.8) {
+    GraphApi.callSendAPI(sender_psid, {"text": 'You are welcome. Can I help you with enything else?'});
+  }
+  else if(thanks && thanks.confidence > 0.8) {
+    GraphApi.callSendAPI(sender_psid, {"text": 'Good bye! Have a Nice day'});
   }
   // Check if the message contains text
   else if (received_message.text) {    

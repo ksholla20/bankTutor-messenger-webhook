@@ -111,7 +111,7 @@ const postBackWorkflow = {
         },
         {
             "type": "postback",
-            "title": "Is it Done?",
+            "title": "Thanks. I'm done",
             "payload": "cdworkflowdone",
         },
     ]},
@@ -123,7 +123,7 @@ const postBackWorkflow = {
         },
         {
             "type": "postback",
-            "title": "Is it Done?",
+            "title": "Thanks. I'm done",
             "payload": "cdworkflowdone",
         },
     ]},
@@ -135,7 +135,7 @@ const postBackWorkflow = {
         },
         {
             "type": "postback",
-            "title": "Is it Done?",
+            "title": "Thanks. I'm done",
             "payload": "cdworkflowdone",
         },
     ]},
@@ -171,7 +171,7 @@ const postBackWorkflow = {
         },
         {
             "type": "postback",
-            "title": "Is it Done?",
+            "title": "Thanks. I'm done",
             "payload": "cdworkflowdone",
         },
     ]},
@@ -183,7 +183,7 @@ const postBackWorkflow = {
         },
         {
             "type": "postback",
-            "title": "Is it Done?",
+            "title": "Thanks. I'm done",
             "payload": "cdworkflowdone",
         },
     ]},

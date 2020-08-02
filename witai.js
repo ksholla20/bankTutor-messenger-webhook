@@ -22,7 +22,10 @@ module.exports = class WitAiApi {
           console.log(res.body);
           const info = JSON.parse(res.body);
           const intent = info.intents.sort(function(a, b){return b.confidence-a.confidence})[0];
-          callback(sender_psid, intent.name);
+          if(intent)
+              callback(sender_psid, intent.name);
+          else
+              callback(sender_psid, query);
         } else {
           console.error("Unable to send message:" + err);
         }
