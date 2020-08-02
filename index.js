@@ -14,12 +14,12 @@ const request = require('request');
 const GraphApi = require('./api');
 const WitAiApi = require('./witai');
 const Response = require('./response');
-const imageBasePath = "https://github.com/ksholla20/bankTutor-messenger-webhook/blob/master/assets"
+const imageBasePath = "https://raw.githubusercontent.com/ksholla20/bankTutor-messenger-webhook/master/assets"
 const imagePath = {
-    "AccountOpenChecking": `https://i.postimg.cc/Pr05CWhQ/Create-Account.jpg`,
-    "AccountOpenSavings": `https://i.postimg.cc/Pr05CWhQ/Create-Account.jpg`,
-    "TransferMoney": `TransferMoney.png`,
-    "GrantLoan": `GrantLoan.png`,
+    "AccountOpenChecking": `${imageBasePath}/CreateAccount.jpg`,
+    "AccountOpenSavings": `${imageBasePath}/CreateAccount.jpg`,
+    "TransferMoney": `${imageBasePath}/TransferMoney.png`,
+    "GrantLoan": `${imageBasePath}/GrantLoan.png`,
 };
 
 function witAiApiCallback(sender_psid, intentId) {
@@ -30,8 +30,8 @@ function witAiApiCallback(sender_psid, intentId) {
     switch(intentId) {
         case "AccountOpenChecking": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
         case "AccountOpenSavings": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "TransferMoney": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/png`; break;
-        case "GrantLoan": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/png`; break;
+        case "TransferMoney": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
+        case "GrantLoan": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
         case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",
             [
               {
@@ -49,9 +49,11 @@ function witAiApiCallback(sender_psid, intentId) {
     }
     
     GraphApi.callSendAPI(sender_psid, response, filedata);
+    /*
     if(intentId !== "AccountOpen") {
         GraphApi.callSendAPI(sender_psid, Response.genWebUrlButton("Click Here To Open", `${imageBasePath}/${imagePath[intentId]}`));
     }
+    */
 }
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
