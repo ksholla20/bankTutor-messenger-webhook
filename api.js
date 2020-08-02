@@ -4,16 +4,13 @@
 const request = require("request");
       
 module.exports = class GraphApi {
-    static callSendAPI(sender_psid, response, filedata) {
+    static callSendAPI(sender_psid, response) {
       // Construct the message body
       let request_body = {
         "recipient": {
           "id": sender_psid
         },
         "message": response
-      }
-      if(filedata){
-          request_body["filedata"] = filedata;
       }
 
       // Send the HTTP request to the Messenger Platform

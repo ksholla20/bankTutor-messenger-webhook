@@ -22,38 +22,236 @@ const imagePath = {
     "GrantLoan": `${imageBasePath}/GrantLoan.png`,
 };
 
+const postBackWorkflow = {
+    "AccountOpen": {"text": "Which kind of account do you want to open?", "options": [
+        {
+            "type": "postback",
+            "title": "Savings",
+            "payload": "AccountOpenSavings",
+        },
+        {
+            "type": "postback",
+            "title": "Checking",
+            "payload": "AccountOpenChecking",
+        }
+    ]},
+    "CertificateDeposit": {"text": "Which kind of account do you want to open?", "options": [
+        {
+            "type": "postback",
+            "title": "Savings",
+            "payload": "savingsopen",
+        },
+        {
+            "type": "postback",
+            "title": "Checking",
+            "payload": "checkingopen",
+        }
+    ]},
+    "begincd": {"text": "What kind of option?", "options": [
+        {
+            "type": "postback",
+            "title": "Featured CD account",
+            "payload": "featuredcd",
+        },
+        {
+            "type": "postback",
+            "title": "Standard Term CD account",
+            "payload": "standardcd",
+        }
+    ]},
+    "featuredcd": {"text": "Is Deposit greater than equal to $10,000", "options": [
+        {
+            "type": "postback",
+            "title": "Yes",
+            "payload": "featuredcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "No",
+            "payload": "featuredcdno",
+        }
+    ]},
+    "standardcd": {"text": "Is Deposit greater than equal to $1,000", "options": [
+        {
+            "type": "postback",
+            "title": "Yes",
+            "payload": "standardcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "No",
+            "payload": "standardcdno",
+        }
+    ]},
+    "featuredcdyes": {"text": "What is the term?", "options": [
+        {
+            "type": "postback",
+            "title": "1 - 11 months",
+            "payload": "featuredcdyes11",
+        },
+        {
+            "type": "postback",
+            "title": "12 - 35 months",
+            "payload": "featuredcdyes12",
+        },
+        {
+            "type": "postback",
+            "title": "36 months",
+            "payload": "featuredcdyes36",
+        },
+        {
+            "type": "postback",
+            "title": "37 - 60 months",
+            "payload": "featuredcdyes12",
+        },
+    ]},
+    "standardcdyes": {"text": "What is the term?", "options": [
+        {
+            "type": "postback",
+            "title": "7 months",
+            "payload": "standardcd6",
+        },
+        {
+            "type": "postback",
+            "title": "10 months",
+            "payload": "standardcd65",
+        },
+        {
+            "type": "postback",
+            "title": "13 months",
+            "payload": "standardcd7",
+        },
+        {
+            "type": "postback",
+            "title": "25 months",
+            "payload": "standardcd65",
+        },
+        {
+            "type": "postback",
+            "title": "37 months",
+            "payload": "standardcd6",
+        },
+    ]},
+    "featuredcdyes11": {"text": "Interest rate is 0.03%", "options": [
+        {
+            "type": "postback",
+            "title": "Select another term?",
+            "payload": "featuredcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "Select different account type?",
+            "payload": "begincd",
+        },
+        {
+            "type": "postback",
+            "title": "Is it Done?",
+            "payload": "cdworkflowdone",
+        },
+    ]},
+    "featuredcdyes12": {"text": "Interest rate is 0.035%", "options": [
+        {
+            "type": "postback",
+            "title": "Select another term?",
+            "payload": "featuredcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "Select different account type?",
+            "payload": "begincd",
+        },
+        {
+            "type": "postback",
+            "title": "Is it Done?",
+            "payload": "cdworkflowdone",
+        },
+    ]},
+    "featuredcdyes36": {"text": "Interest rate is 0.04%", "options": [
+        {
+            "type": "postback",
+            "title": "Select another term?",
+            "payload": "featuredcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "Select different account type?",
+            "payload": "begincd",
+        },
+        {
+            "type": "postback",
+            "title": "Is it Done?",
+            "payload": "cdworkflowdone",
+        },
+    ]},
+    "standardcdyes6": {"text": "Interest rate is 0.06%", "options": [
+        {
+            "type": "postback",
+            "title": "Select another term?",
+            "payload": "standardcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "Select different account type?",
+            "payload": "begincd",
+        },
+        {
+            "type": "postback",
+            "title": "Is it Done?",
+            "payload": "cdworkflowdone",
+        },
+    ]},
+    "standardcdyes65": {"text": "Interest rate is 0.065%", "options": [
+        {
+            "type": "postback",
+            "title": "Select another term?",
+            "payload": "standardcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "Select different account type?",
+            "payload": "begincd",
+        },
+        {
+            "type": "postback",
+            "title": "Is it Done?",
+            "payload": "cdworkflowdone",
+        },
+    ]},
+    "standardcdyes7": {"text": "Interest rate is 0.07%", "options": [
+        {
+            "type": "postback",
+            "title": "Select another term?",
+            "payload": "standardcdyes",
+        },
+        {
+            "type": "postback",
+            "title": "Select different account type?",
+            "payload": "begincd",
+        },
+        {
+            "type": "postback",
+            "title": "Is it Done?",
+            "payload": "cdworkflowdone",
+        },
+    ]},
+}
+const messageWorkflow = {
+    "defaultmessage": {"text": "Don't know what it means"},
+    "featuredcdno": {"text": "Minimum opening deposit is $10,000"},
+    "standardcdno": {"text": "Minimum opening deposit is $1,000"},
+    "cdworkflowdone": {"text": "Thanks, Bye"},
+};
+
 function witAiApiCallback(sender_psid, intentId) {
-    let response = {
-      "text": "Don't know what it means"
+    let response = messageWorkflow["defaultmessage"];
+    if(intentId in workflow) {
+        Response.genButtonTemplate(postBackWorkflow[intentId].text, postBackWorkflow[intentId].options);
     }
-    let filedata = null;
-    switch(intentId) {
-        case "AccountOpenChecking": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "AccountOpenSavings": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "TransferMoney": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "GrantLoan": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
-        case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",
-            [
-              {
-                "type": "postback",
-                "title": "Savings",
-                "payload": "savingsopen",
-              },
-              {
-                "type": "postback",
-                "title": "Checking",
-                "payload": "checkingopen",
-              }
-            ]
-        ); break;
+    else {
+        response = Response.genSimpleImageTemplate(imagePath[intentId])
     }
     
-    GraphApi.callSendAPI(sender_psid, response, filedata);
-    /*
-    if(intentId !== "AccountOpen") {
-        GraphApi.callSendAPI(sender_psid, Response.genWebUrlButton("Click Here To Open", `${imageBasePath}/${imagePath[intentId]}`));
-    }
-    */
+    GraphApi.callSendAPI(sender_psid, response);
 }
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
@@ -67,41 +265,12 @@ function handleMessage(sender_psid, received_message) {
   else if (received_message.text) {    
     // Create the payload for a basic text message
     WitAiApi.callIntentAPI(received_message.text, sender_psid, witAiApiCallback);
-  } else if (received_message.attachments) {
-    // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-      response = Response.genGenericTemplate(attachment_url, "Is this the right picture?", "Tap a button to answer.",[
-          {
-              "type": "postback",
-              "title": "Yes!",
-              "payload": "yes",
-          },
-          {
-              "type": "postback",
-              "title": "No!",
-              "payload": "no",
-          }
-      ]);
-    GraphApi.callSendAPI(sender_psid, response);
-  } 
+  }
 }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
-  let response;
-  
-  // Get the payload for the postback
-  let payload = received_postback.payload;
-
-  // Set the response based on the postback payload
-  switch(payload) {
-      case "yes": response = { "text": "Thanks!" }; break;
-      case "no": response = { "text": "Oops, try sending another image." }; break;
-      case "savingsopen": witAiApiCallback(sender_psid, "AccountOpenSavings"); return;
-      case "checkingopen": witAiApiCallback(sender_psid, "AccountOpenChecking"); return;
-  }
-  // Send the message to acknowledge the postback
-  GraphApi.callSendAPI(sender_psid, response);
+  witAiApiCallback(sender_psid, received_postback.payload);
 }
 
 
