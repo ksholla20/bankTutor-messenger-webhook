@@ -74,6 +74,30 @@ const postBackWorkflow = {
     "featuredcdyes": {"text": "What is the term?", "options": [
         {
             "type": "postback",
+            "title": "Short term",
+            "payload": "featuredcdshortterm",
+        },
+        {
+            "type": "postback",
+            "title": "Long term",
+            "payload": "featuredcdlongterm",
+        }
+    ]},
+    "standardcdyes": {"text": "What is the term?", "options": [
+        {
+            "type": "postback",
+            "title": "Short term",
+            "payload": "standardcdshortterm",
+        },
+        {
+            "type": "postback",
+            "title": "Long term",
+            "payload": "standardcdlongterm",
+        }
+    ]},
+    "featuredcdshortterm": {"text": "How many months?", "options": [
+        {
+            "type": "postback",
             "title": "1 - 11 months",
             "payload": "featuredcdyes11",
         },
@@ -81,7 +105,9 @@ const postBackWorkflow = {
             "type": "postback",
             "title": "12 - 35 months",
             "payload": "featuredcdyes12",
-        },
+        }
+    ]},
+    "featuredcdlongterm": {"text": "How many months?", "options": [
         {
             "type": "postback",
             "title": "36 months",
@@ -93,24 +119,7 @@ const postBackWorkflow = {
             "payload": "featuredcdyes12",
         }
     ]},
-    "standardcdyes": {"text": "What is the term?", "options": [
-        {
-            "type": "postback",
-            "title": "7 months",
-            "payload": "standardcd6",
-        },
-        {
-            "type": "postback",
-            "title": "10 months",
-            "payload": "standardcd65",
-        }
-    ]},
     "featuredcdyes11": {"text": "Interest rate is 0.03%", "options": [
-        {
-            "type": "postback",
-            "title": "Select another term?",
-            "payload": "featuredcdyes",
-        },
         {
             "type": "postback",
             "title": "Select different account type?",
@@ -125,11 +134,6 @@ const postBackWorkflow = {
     "featuredcdyes12": {"text": "Interest rate is 0.035%", "options": [
         {
             "type": "postback",
-            "title": "Select another term?",
-            "payload": "featuredcdyes",
-        },
-        {
-            "type": "postback",
             "title": "Select different account type?",
             "payload": "CertificateDeposit",
         },
@@ -142,11 +146,6 @@ const postBackWorkflow = {
     "featuredcdyes36": {"text": "Interest rate is 0.04%", "options": [
         {
             "type": "postback",
-            "title": "Select another term?",
-            "payload": "featuredcdyes",
-        },
-        {
-            "type": "postback",
             "title": "Select different account type?",
             "payload": "CertificateDeposit",
         },
@@ -156,12 +155,31 @@ const postBackWorkflow = {
             "payload": "cdworkflowdone",
         },
     ]},
-    "standardcdyes6": {"text": "Interest rate is 0.06%", "options": [
+    "standardcdshortterm": {"text": "How many months?", "options": [
         {
             "type": "postback",
-            "title": "Select another term?",
-            "payload": "standardcdyes",
+            "title": "7 months",
+            "payload": "standardcd6",
         },
+        {
+            "type": "postback",
+            "title": "13 months",
+            "payload": "standardcd7",
+        }
+    ]},
+    "standardcdlongterm": {"text": "How many months?", "options": [
+        {
+            "type": "postback",
+            "title": "25 months",
+            "payload": "standardcd65",
+        },
+        {
+            "type": "postback",
+            "title": "37 months",
+            "payload": "standardcd6",
+        },
+    ]},
+    "standardcdyes6": {"text": "Interest rate is 0.06%", "options": [
         {
             "type": "postback",
             "title": "Select different account type?",
@@ -176,11 +194,6 @@ const postBackWorkflow = {
     "standardcdyes65": {"text": "Interest rate is 0.065%", "options": [
         {
             "type": "postback",
-            "title": "Select another term?",
-            "payload": "standardcdyes",
-        },
-        {
-            "type": "postback",
             "title": "Select different account type?",
             "payload": "CertificateDeposit",
         },
@@ -191,11 +204,6 @@ const postBackWorkflow = {
         },
     ]},
     "standardcdyes7": {"text": "Interest rate is 0.07%", "options": [
-        {
-            "type": "postback",
-            "title": "Select another term?",
-            "payload": "standardcdyes",
-        },
         {
             "type": "postback",
             "title": "Select different account type?",
@@ -218,13 +226,9 @@ const messageWorkflow = {
 function witAiApiCallback(sender_psid, intentId) {
     let response = messageWorkflow["defaultmessage"];
     if(intentId in postBackWorkflow) {
-        console.log("PostBack: " + intentId);
-        console.log(postBackWorkflow[intentId].text);
-        console.log(postBackWorkflow[intentId].options);
         response = Response.genButtonTemplate(postBackWorkflow[intentId].text, postBackWorkflow[intentId].options);
     }
     else if(intentId in messageWorkflow) {
-        console.log("Message: " + intendId);
         response = messageWorkflow[intentId];
     }
     else {
