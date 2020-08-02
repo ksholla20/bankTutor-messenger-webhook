@@ -40,9 +40,9 @@ function handleMessage(sender_psid, received_message) {
     GraphApi.callSendAPI(sender_psid, {"text": 'Hi there! What do you want to seek?'});
   }
   else if(thanks && thanks.confidence > 0.8) {
-    GraphApi.callSendAPI(sender_psid, {"text": 'You are welcome. Can I help you with enything else?'});
+    GraphApi.callSendAPI(sender_psid, {"text": 'You are welcome. Can I help you with anything else?'});
   }
-  else if(thanks && thanks.confidence > 0.8) {
+  else if(bye && bye.confidence > 0.8) {
     GraphApi.callSendAPI(sender_psid, {"text": 'Good bye! Have a Nice day'});
   }
   // Check if the message contains text
