@@ -38,18 +38,6 @@ const postBackWorkflow = {
     "CertificateDeposit": {"text": "Which kind of account do you want to open?", "options": [
         {
             "type": "postback",
-            "title": "Savings",
-            "payload": "savingsopen",
-        },
-        {
-            "type": "postback",
-            "title": "Checking",
-            "payload": "checkingopen",
-        }
-    ]},
-    "begincd": {"text": "What kind of option?", "options": [
-        {
-            "type": "postback",
             "title": "Featured CD account",
             "payload": "featuredcd",
         },
@@ -141,7 +129,7 @@ const postBackWorkflow = {
         {
             "type": "postback",
             "title": "Select different account type?",
-            "payload": "begincd",
+            "payload": "CertificateDeposit",
         },
         {
             "type": "postback",
@@ -158,7 +146,7 @@ const postBackWorkflow = {
         {
             "type": "postback",
             "title": "Select different account type?",
-            "payload": "begincd",
+            "payload": "CertificateDeposit",
         },
         {
             "type": "postback",
@@ -175,7 +163,7 @@ const postBackWorkflow = {
         {
             "type": "postback",
             "title": "Select different account type?",
-            "payload": "begincd",
+            "payload": "CertificateDeposit",
         },
         {
             "type": "postback",
@@ -192,7 +180,7 @@ const postBackWorkflow = {
         {
             "type": "postback",
             "title": "Select different account type?",
-            "payload": "begincd",
+            "payload": "CertificateDeposit",
         },
         {
             "type": "postback",
@@ -209,7 +197,7 @@ const postBackWorkflow = {
         {
             "type": "postback",
             "title": "Select different account type?",
-            "payload": "begincd",
+            "payload": "CertificateDeposit",
         },
         {
             "type": "postback",
@@ -226,7 +214,7 @@ const postBackWorkflow = {
         {
             "type": "postback",
             "title": "Select different account type?",
-            "payload": "begincd",
+            "payload": "CertificateDeposit",
         },
         {
             "type": "postback",
