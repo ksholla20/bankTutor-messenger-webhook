@@ -16,8 +16,8 @@ const WitAiApi = require('./witai');
 const Response = require('./response');
 const imageBasePath = "https://github.com/ksholla20/bankTutor-messenger-webhook/blob/master/assets"
 const imagePath = {
-    "AccountOpenChecking": `CreateAccount.jpg`,
-    "AccountOpenSavings": `CreateAccount.jpg`,
+    "AccountOpenChecking": `https://i.postimg.cc/Pr05CWhQ/Create-Account.jpg`,
+    "AccountOpenSavings": `https://i.postimg.cc/Pr05CWhQ/Create-Account.jpg`,
     "TransferMoney": `TransferMoney.png`,
     "GrantLoan": `GrantLoan.png`,
 };
@@ -28,8 +28,8 @@ function witAiApiCallback(sender_psid, intentId) {
     }
     let filedata = null;
     switch(intentId) {
-        case "AccountOpenChecking": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/jpeg`; break;
-        case "AccountOpenSavings": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/jpeg`; break;
+        case "AccountOpenChecking": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
+        case "AccountOpenSavings": response = Response.genSimpleImageTemplate(imagePath[intentId]); break;
         case "TransferMoney": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/png`; break;
         case "GrantLoan": response = Response.genSimpleImageTemplate(); filedata = `@/assets/${imagePath[intentId]};type=image/png`; break;
         case "AccountOpen": response = Response.genButtonTemplate("Which kind of account do you want to open?",

@@ -74,6 +74,7 @@ module.exports = class Response {
       attachment: {
         type: "image",
         payload: {
+            "url": image_url,
             "is_reusable":true
         }
       }
