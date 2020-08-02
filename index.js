@@ -91,7 +91,7 @@ const postBackWorkflow = {
             "type": "postback",
             "title": "37 - 60 months",
             "payload": "featuredcdyes12",
-        },
+        }
     ]},
     "standardcdyes": {"text": "What is the term?", "options": [
         {
@@ -103,22 +103,7 @@ const postBackWorkflow = {
             "type": "postback",
             "title": "10 months",
             "payload": "standardcd65",
-        },
-        {
-            "type": "postback",
-            "title": "13 months",
-            "payload": "standardcd7",
-        },
-        {
-            "type": "postback",
-            "title": "25 months",
-            "payload": "standardcd65",
-        },
-        {
-            "type": "postback",
-            "title": "37 months",
-            "payload": "standardcd6",
-        },
+        }
     ]},
     "featuredcdyes11": {"text": "Interest rate is 0.03%", "options": [
         {
