@@ -1,5 +1,5 @@
 'use strict';
-import {imagePath, postBackWorkflow, messageWorkflow}
+const {imagePath, postBackWorkflow, messageWorkflow} = require("./workflow");
 // Imports dependencies and set up http server
 const
   express = require('express'),

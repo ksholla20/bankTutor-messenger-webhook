@@ -1,12 +1,12 @@
 const imageBasePath = "https://raw.githubusercontent.com/ksholla20/bankTutor-messenger-webhook/master/assets"
-export const imagePath = {
+const imagePath = {
     "AccountOpenChecking": `${imageBasePath}/CreateAccount.jpg`,
     "AccountOpenSavings": `${imageBasePath}/CreateAccount.jpg`,
     "TransferMoney": `${imageBasePath}/TransferMoney.png`,
     "GrantLoan": `${imageBasePath}/GrantLoan.png`,
 };
 
-export const postBackWorkflow = {
+const postBackWorkflow = {
     "AccountOpen": {"text": "Which kind of account do you want to open?", "options": [
         {
             "type": "postback",
@@ -201,9 +201,14 @@ export const postBackWorkflow = {
     ]},
 };
 
-export const messageWorkflow = {
+const messageWorkflow = {
     "defaultmessage": {"text": "Don't know what it means"},
     "featuredcdno": {"text": "Minimum opening deposit is $10,000"},
     "standardcdno": {"text": "Minimum opening deposit is $1,000"},
     "cdworkflowdone": {"text": "Thanks, Bye"},
 };
+
+
+exports.imagePath = imagePath;
+exports.postBackWorkflow = postBackWorkflow;
+exports.messageWorkflow = messageWorkflow;
