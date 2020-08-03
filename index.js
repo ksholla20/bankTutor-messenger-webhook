@@ -61,6 +61,11 @@ function handlePostback(sender_psid, received_postback) {
   witAiApiCallback(sender_psid, received_postback.payload);
 }
 
+// Handles messaging_quickreply events
+function handleQuickReply(sender_psid, received_quickreply) {
+  witAiApiCallback(sender_psid, received_quickreply.payload);
+}
+
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
@@ -83,6 +88,9 @@ app.post('/webhook', (req, res) => {
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
+      if(webhook_event.quick_reply) {
+        handleQuickReply(sender_psid, webhook_event.quick_reply);
+      }
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
