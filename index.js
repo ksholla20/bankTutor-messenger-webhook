@@ -16,6 +16,7 @@ const Response = require('./response');
 
 function witAiApiCallback(sender_psid, intentId) {
     let response = messageWorkflow["defaultmessage"];
+    console.log(intentId);
     if(intentId in quickReplyWorkflow) {
         response = Response.genQuickReply(quickReplyWorkflow[intentId].text, quickReplyWorkflow[intentId].options);
     }
