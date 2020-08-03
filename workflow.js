@@ -31,78 +31,6 @@ const postBackWorkflow = {
             "payload": "standardcd",
         }
     ]},
-    "featuredcd": {"text": "Is Deposit greater than equal to $10,000", "options": [
-        {
-            "type": "postback",
-            "title": "Yes",
-            "payload": "featuredcdyes",
-        },
-        {
-            "type": "postback",
-            "title": "No",
-            "payload": "featuredcdno",
-        }
-    ]},
-    "standardcd": {"text": "Is Deposit greater than equal to $1,000", "options": [
-        {
-            "type": "postback",
-            "title": "Yes",
-            "payload": "standardcdyes",
-        },
-        {
-            "type": "postback",
-            "title": "No",
-            "payload": "standardcdno",
-        }
-    ]},
-    "featuredcdyes": {"text": "What is the term?", "options": [
-        {
-            "type": "postback",
-            "title": "Short term",
-            "payload": "featuredcdshortterm",
-        },
-        {
-            "type": "postback",
-            "title": "Long term",
-            "payload": "featuredcdlongterm",
-        }
-    ]},
-    "standardcdyes": {"text": "What is the term?", "options": [
-        {
-            "type": "postback",
-            "title": "Short term",
-            "payload": "standardcdshortterm",
-        },
-        {
-            "type": "postback",
-            "title": "Long term",
-            "payload": "standardcdlongterm",
-        }
-    ]},
-    "featuredcdshortterm": {"text": "How many months?", "options": [
-        {
-            "type": "postback",
-            "title": "1 - 11 months",
-            "payload": "featuredcdyes11",
-        },
-        {
-            "type": "postback",
-            "title": "12 - 35 months",
-            "payload": "featuredcdyes12",
-        }
-    ]},
-    "featuredcdlongterm": {"text": "How many months?", "options": [
-        {
-            "type": "postback",
-            "title": "36 months",
-            "payload": "featuredcdyes36",
-        },
-        {
-            "type": "postback",
-            "title": "37 - 60 months",
-            "payload": "featuredcdyes12",
-        }
-    ]},
     "featuredcdyes11": {"text": "Interest rate is 0.03%", "options": [
         {
             "type": "postback",
@@ -137,30 +65,6 @@ const postBackWorkflow = {
             "type": "postback",
             "title": "Thanks. I'm done",
             "payload": "cdworkflowdone",
-        },
-    ]},
-    "standardcdshortterm": {"text": "How many months?", "options": [
-        {
-            "type": "postback",
-            "title": "7 months",
-            "payload": "standardcd6",
-        },
-        {
-            "type": "postback",
-            "title": "13 months",
-            "payload": "standardcd7",
-        }
-    ]},
-    "standardcdlongterm": {"text": "How many months?", "options": [
-        {
-            "type": "postback",
-            "title": "25 months",
-            "payload": "standardcd65",
-        },
-        {
-            "type": "postback",
-            "title": "37 months",
-            "payload": "standardcd6",
         },
     ]},
     "standardcd6": {"text": "Interest rate is 0.06%", "options": [
@@ -209,6 +113,26 @@ const messageWorkflow = {
 };
 
 const quickReplyWorkflow = {
+    "featuredcd": {"text": "Is Deposit greater than equal to $10,000", "options": [
+        {
+            "title": "Yes",
+            "payload": "featuredcdyes",
+        },
+        {
+            "title": "No",
+            "payload": "featuredcdno",
+        }
+    ]},
+    "standardcd": {"text": "Is Deposit greater than equal to $1,000", "options": [
+        {
+            "title": "Yes",
+            "payload": "standardcdyes",
+        },
+        {
+            "title": "No",
+            "payload": "standardcdno",
+        }
+    ]},
     "standardcdyes": {"text": "What is the term duration in months?", "options":[
         {
             "title": "7",
