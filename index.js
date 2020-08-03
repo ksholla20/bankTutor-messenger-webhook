@@ -32,6 +32,19 @@ function witAiApiCallback(sender_psid, intentId) {
     
     GraphApi.callSendAPI(sender_psid, response);
 }
+
+// Handles messaging_postbacks events
+function handlePostback(sender_psid, received_postback) {
+    console.log("In Post Back");
+  witAiApiCallback(sender_psid, received_postback.payload);
+}
+
+// Handles messaging_quickreply events
+function handleQuickReply(sender_psid, received_quickreply) {
+    console.log("In Quick Reply");
+  witAiApiCallback(sender_psid, received_quickreply.payload);
+}
+
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
@@ -41,7 +54,10 @@ function handleMessage(sender_psid, received_message) {
   const thanks = WitAiApi.firstTrait(received_message.nlp, 'wit$thanks');
   const bye = WitAiApi.firstTrait(received_message.nlp, 'wit$bye');
 
-  if (greeting && greeting.confidence > 0.8) {
+  if(received_message.quick_reply) {
+    handleQuickReply(sender_psid, webhook_event.quick_reply);
+  }
+  else if (greeting && greeting.confidence > 0.8) {
     GraphApi.callSendAPI(sender_psid, {"text": 'Hi there! What do you want to seek?'});
   }
   else if(thanks && thanks.confidence > 0.8) {
@@ -56,19 +72,6 @@ function handleMessage(sender_psid, received_message) {
     WitAiApi.callIntentAPI(received_message.text, sender_psid, witAiApiCallback);
   }
 }
-
-// Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
-    console.log("In Post Back");
-  witAiApiCallback(sender_psid, received_postback.payload);
-}
-
-// Handles messaging_quickreply events
-function handleQuickReply(sender_psid, received_quickreply) {
-    console.log("In Quick Reply");
-  witAiApiCallback(sender_psid, received_quickreply.payload);
-}
-
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {  
@@ -91,10 +94,7 @@ app.post('/webhook', (req, res) => {
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
-      if(webhook_event.quick_reply) {
-        handleQuickReply(sender_psid, webhook_event.quick_reply);
-      }
-      else if (webhook_event.message) {
+      if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
