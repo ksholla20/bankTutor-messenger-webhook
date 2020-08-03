@@ -208,7 +208,46 @@ const messageWorkflow = {
     "cdworkflowdone": {"text": "Thanks, Bye"},
 };
 
+const quickReplyWorkflow = {
+    "standardcdyes": {"text": "What is the term duration in months?", "options":[
+        {
+            "title": "7",
+            "payload": "standardcd6"
+        },
+        {
+            "title": "13",
+            "payload": "standardcd7"
+        },
+        {
+            "title": "25",
+            "payload": "standardcd65"
+        },
+        {
+            "title": "37",
+            "payload": "standardcd6"
+        },
+    ]},
+    "featuredcdyes": {"text": "What is the term duration in months?", "options":[
+        {
+            "title": "1-11",
+            "payload": "featuredcdyes11"
+        },
+        {
+            "title": "12-35",
+            "payload": "featuredcdyes12"
+        },
+        {
+            "title": "36",
+            "payload": "featuredcdyes36"
+        },
+        {
+            "title": "37-60",
+            "payload": "featuredcdyes12"
+        },
+    ]},
+};
 
 exports.imagePath = imagePath;
 exports.postBackWorkflow = postBackWorkflow;
 exports.messageWorkflow = messageWorkflow;
+exports.quickReplyWorkflow = quickReplyWorkflow;

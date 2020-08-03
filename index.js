@@ -1,5 +1,5 @@
 'use strict';
-const {imagePath, postBackWorkflow, messageWorkflow} = require("./workflow");
+const {imagePath, postBackWorkflow, messageWorkflow, quickReplyWorkflow} = require("./workflow");
 // Imports dependencies and set up http server
 const
   express = require('express'),
@@ -16,7 +16,10 @@ const Response = require('./response');
 
 function witAiApiCallback(sender_psid, intentId) {
     let response = messageWorkflow["defaultmessage"];
-    if(intentId in postBackWorkflow) {
+    if(intentId in quickReplyWorkflow) {
+        response = Response.genQuickReply(quickReplyWorkflow[intentId].text, quickReplyWorkflow[intentId].options);
+    }
+    else if(intentId in postBackWorkflow) {
         response = Response.genButtonTemplate(postBackWorkflow[intentId].text, postBackWorkflow[intentId].options);
     }
     else if(intentId in messageWorkflow) {
@@ -71,7 +74,7 @@ app.post('/webhook', (req, res) => {
       // Gets the message. entry.messaging is an array, but 
       // will only ever contain one message, so we get index 0
       let webhook_event = entry.messaging[0];
-      //console.log(webhook_event);
+      console.log(webhook_event);
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
