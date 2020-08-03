@@ -55,7 +55,7 @@ function handleMessage(sender_psid, received_message) {
   const bye = WitAiApi.firstTrait(received_message.nlp, 'wit$bye');
 
   if(received_message.quick_reply) {
-    handleQuickReply(sender_psid, webhook_event.quick_reply);
+    handleQuickReply(sender_psid, received_message.quick_reply);
   }
   else if (greeting && greeting.confidence > 0.8) {
     GraphApi.callSendAPI(sender_psid, {"text": 'Hi there! What do you want to seek?'});
