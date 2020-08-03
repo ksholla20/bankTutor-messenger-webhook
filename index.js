@@ -35,6 +35,7 @@ function witAiApiCallback(sender_psid, intentId) {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   let response;
+    console.log("In Message");
   console.log(received_message);
   const greeting = WitAiApi.firstTrait(received_message.nlp, 'wit$greetings');
   const thanks = WitAiApi.firstTrait(received_message.nlp, 'wit$thanks');
@@ -58,11 +59,13 @@ function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
+    console.log("In Post Back");
   witAiApiCallback(sender_psid, received_postback.payload);
 }
 
 // Handles messaging_quickreply events
 function handleQuickReply(sender_psid, received_quickreply) {
+    console.log("In Quick Reply");
   witAiApiCallback(sender_psid, received_quickreply.payload);
 }
 
